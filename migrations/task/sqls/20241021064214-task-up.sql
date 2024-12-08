@@ -252,13 +252,15 @@ AND course_id = (SELECT id FROM "COURSE" WHERE user_id = (SELECT id FROM "USER" 
 AND status NOT IN ('課程已取消');
 
 -- 5-6. 查詢：計算用戶王小明的購買堂數，顯示須包含以下欄位： user_id , total。 (需使用到 SUM 函式與 Group By)
-SELECT user_id, sum(purchased_credits) AS total
+SELECT 
+  user_id, sum(purchased_credits) AS total
 FROM "CREDIT_PURCHASE"
 WHERE user_id = (SELECT id FROM "USER" WHERE email = 'wXlTq@hexschooltest.io')
 GROUP BY user_id;
 
 -- 5-7. 查詢：計算用戶王小明的已使用堂數，顯示須包含以下欄位： user_id , total。 (需使用到 Count 函式與 Group By)
-SELECT user_id, COUNT(*) AS total
+SELECT 
+  user_id, COUNT(*) AS total
 FROM "COURSE_BOOKING"
 WHERE user_id = (SELECT id FROM "USER" WHERE email = 'wXlTq@hexschooltest.io')
 AND status != '課程已取消'
@@ -335,7 +337,8 @@ WHERE purchase_at BETWEEN '2024-11-01 00:00:00' AND '2024-11-30 23:59:59';
 
 -- 6-5. 查詢：計算 11 月份有預約課程的會員人數（需使用 Distinct，並用 created_at 和 status 欄位統計）
 -- 顯示須包含以下欄位： 預約會員人數
-SELECT COUNT(DISTINCT user_id) AS "預約會員人數"
+SELECT 
+   COUNT(DISTINCT user_id) AS "預約會員人數"
 FROM "COURSE_BOOKING"
 WHERE created_at BETWEEN '2024-11-01 00:00:00' AND '2024-11-30 23:59:59'
 AND status != '課程已取消';
